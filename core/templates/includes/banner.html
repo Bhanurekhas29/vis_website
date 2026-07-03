@@ -1,0 +1,30 @@
+{% load static %}
+{% if banner %}
+<section class="page-banner" data-aos="fade-up"
+  {% if banner.banner_image %}style="background-image: url('{{ banner.banner_image.url }}');"{% endif %}>
+  <div class="container-fluid page-banner__inner">
+    <div class="page-banner__content">
+      <h1 class="page-banner__heading">
+        {% if banner.highlight_text %}
+          {{ banner.heading|cut:banner.highlight_text }}<span class="page-banner__highlight">{{ banner.highlight_text }}</span>
+        {% else %}
+          {{ banner.heading }}
+        {% endif %}
+      </h1>
+
+      {% if banner.description %}
+        <p class="page-banner__description">{{ banner.description }}</p>
+      {% endif %}
+
+      <div class="page-banner__ctas">
+        {% if banner.cta_1_text %}
+          <a href="{{ banner.cta_1_url }}" class="btn-gradient">{{ banner.cta_1_text }}</a>
+        {% endif %}
+        {% if banner.cta_2_text %}
+          <a href="{{ banner.cta_2_url }}" class="btn-outline">{{ banner.cta_2_text }}</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

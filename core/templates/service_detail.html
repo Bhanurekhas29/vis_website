@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}{{ service.detail_banner_heading }} — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+
+<section class="service-detail-banner">
+  <div class="container-fluid service-detail-banner__inner">
+    <div class="service-detail-banner__content" data-aos="fade-up">
+      <h1 class="service-detail-banner__heading">{{ service.detail_banner_heading }}</h1>
+      <p class="service-detail-banner__desc">{{ service.detail_banner_description }}</p>
+      <div class="service-detail-banner__ctas">
+        <a href="{{ service.detail_banner_cta1_url }}" class="btn-gradient">{{ service.detail_banner_cta1_text }}</a>
+        <a href="{{ service.detail_banner_cta2_url }}" class="btn-outline">{{ service.detail_banner_cta2_text }}</a>
+      </div>
+    </div>
+
+    {% if service.detail_banner_image %}
+      <div class="service-detail-banner__image" data-aos="fade-left" data-aos-delay="150">
+        <img src="{{ service.detail_banner_image.url }}" alt="{{ service.detail_banner_heading }}">
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="service-detail-explanation">
+  <div class="container-fluid">
+    <h2 class="service-detail-explanation__heading" data-aos="fade-up">{{ service.detail_explanation_heading }}</h2>
+    <p class="service-detail-explanation__text" data-aos="fade-up" data-aos-delay="100">{{ service.detail_explanation_text }}</p>
+  </div>
+</section>
+
+<section class="service-solutions">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ service.solutions_heading }}</h2>
+
+    <div class="service-solutions__grid">
+      {% for card in solution_cards %}
+        <div class="solution-swap-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+
+          <div class="solution-swap-card__default">
+            <div class="solution-swap-card__image">
+              {% if card.default_image %}
+                <img src="{{ card.default_image.url }}" alt="{{ card.title }}">
+              {% endif %}
+            </div>
+            <h3 class="solution-swap-card__title">{{ card.title }}</h3>
+          </div>
+
+          <div class="solution-swap-card__hover">
+            {% if card.price_text %}
+              <div class="price-flag">
+                <span>Starting From</span>
+                <strong>{{ card.price_text }}</strong>
+              </div>
+            {% endif %}
+
+            <div class="hover-icon-square">
+              {% if card.hover_icon %}
+                <img src="{{ card.hover_icon.url }}" alt="">
+              {% endif %}
+            </div>
+
+            <h3 class="solution-swap-card__title">{{ card.title }}</h3>
+            {% if card.hover_description %}
+              <p class="solution-swap-card__desc">{{ card.hover_description }}</p>
+            {% endif %}
+
+            <ul class="solution-checklist">
+              {% for item in card.checklist_items.all %}
+                {% if item.is_active %}
+                  <li><i class="ti ti-circle-check-filled" aria-hidden="true"></i>{{ item.text }}</li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="service-features">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ service.features_heading }}</h2>
+
+    <div class="service-features__grid">
+      {% for feature in features %}
+        <div class="feature-pill" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="feature-pill__icon">
+            {% if feature.icon %}
+              <img src="{{ feature.icon.url }}" alt="">
+            {% endif %}
+          </div>
+          <span class="feature-pill__title">{{ feature.title }}</span>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

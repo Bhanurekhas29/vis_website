@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}About — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+
+<section class="about-intro">
+  <div class="container-fluid about-intro__inner">
+
+    <div class="about-intro__left">
+      {% for card in highlight_cards %}
+        <div class="highlight-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.image %}
+            <img src="{{ card.image.url }}" alt="{{ card.title }}" class="highlight-card__icon">
+          {% endif %}
+          <h3 class="highlight-card__title">{{ card.title }}</h3>
+          <p class="highlight-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+
+      {% if intro.quote_text %}
+        <div class="quote-card" data-aos="fade-up" data-aos-delay="300">
+          <p>&ldquo;{{ intro.quote_text }}&rdquo;</p>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="about-intro__right" data-aos="fade-up">
+      {% if intro.eyebrow_text %}
+        <span class="eyebrow">{{ intro.eyebrow_text }}</span>
+      {% endif %}
+      <h2 class="about-intro__heading">{{ intro.heading }}</h2>
+      <div class="about-intro__desc">
+        {{ intro.description|linebreaks }}
+      </div>
+
+      <ul class="checklist">
+        {% for item in checklist_items %}
+          <li><i class="ti ti-circle-check" aria-hidden="true"></i>{{ item.text }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<section class="about-stats">
+  <div class="container-fluid about-stats__inner">
+    {% for stat in stats %}
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="stat-card__number" data-count-target="{{ stat.number }}">0</div>
+        <p class="stat-card__label">{{ stat.label }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="about-services">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">Core Services</h2>
+
+    <div class="about-services__grid">
+      {% for card in service_cards %}
+        <div class="service-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.image %}
+            <div class="service-card__image">
+              <img src="{{ card.image.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="service-card__title">{{ card.title }}</h3>
+          <p class="service-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="about-value">
+  <div class="container-fluid about-value__inner">
+
+    <div class="about-value__left" data-aos="fade-up">
+      <h2 class="about-value__heading">{{ value_section.heading }}</h2>
+
+      <div class="value-steps">
+        {% for step in value_steps %}
+          <div class="value-step" data-aos="fade-right" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+            <div class="value-step__number">{{ step.step_number }}</div>
+            <div>
+              <h3 class="value-step__title">{{ step.title }}</h3>
+              <p class="value-step__desc">{{ step.description }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% if value_section.image %}
+      <div class="about-value__image" data-aos="fade-left" data-aos-delay="150">
+        <img src="{{ value_section.image.url }}" alt="{{ value_section.heading }}">
+      </div>
+    {% endif %}
+
+  </div>
+</section>
+
+<section class="about-mission-vision">
+  <div class="container-fluid about-mission-vision__grid">
+    {% for card in mission_vision_cards %}
+      <div class="mv-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        {% if card.image %}
+          <img src="{{ card.image.url }}" alt="{{ card.title }}" class="mv-card__icon">
+        {% endif %}
+        <h3 class="mv-card__title">{{ card.title }}</h3>
+        <p class="mv-card__desc">{{ card.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="about-why">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ why_section.heading }}</h2>
+    {% if why_section.subheading %}
+      <p class="section-subheading" data-aos="fade-up" data-aos-delay="100">{{ why_section.subheading }}</p>
+    {% endif %}
+
+    <div class="about-why__grid">
+      {% for card in why_cards %}
+        <div class="why-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.image %}
+            <div class="why-card__icon-wrap">
+              <img src="{{ card.image.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="why-card__title">{{ card.title }}</h3>
+          <p class="why-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

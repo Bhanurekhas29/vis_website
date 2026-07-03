@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% load core_extras %}
+{% block title %}{{ site_settings.site_title }} — Home{% endblock %}
+
+{% block content %}
+
+<section class="home-hero" {% if hero.background_image %}style="background-image: url('{{ hero.background_image.url }}');"{% endif %}>
+  <div class="container-fluid home-hero__inner">
+
+    <div class="home-hero__content" data-aos="fade-up">
+      <h1 class="home-hero__heading">
+        {% if hero.highlight_text %}
+          {{ hero.heading|highlight_word:hero.highlight_text }}
+        {% else %}
+          {{ hero.heading }}
+        {% endif %}
+      </h1>
+      <p class="home-hero__desc">{{ hero.description }}</p>
+      <div class="home-hero__ctas">
+        <a href="{{ hero.cta_1_url }}" class="btn-gradient">{{ hero.cta_1_text }}</a>
+        <a href="{{ hero.cta_2_url }}" class="btn-outline">{{ hero.cta_2_text }}</a>
+      </div>
+    </div>
+
+    <div class="home-hero__characters">
+      {% if hero.sitting_man_image %}
+        <img src="{{ hero.sitting_man_image.url }}" alt="" class="home-hero__sitting-man">
+      {% endif %}
+      {% if hero.standing_man_image %}
+        <img src="{{ hero.standing_man_image.url }}" alt="" class="home-hero__standing-man">
+      {% endif %}
+    </div>
+
+  </div>
+</section>
+
+<section class="home-about">
+  <div class="container-fluid home-about__inner">
+
+    <div class="home-about__image">
+      {% if about_section.image %}
+        <img src="{{ about_section.image.url }}" alt="{{ about_section.heading }}">
+      {% endif %}
+    </div>
+
+    <div class="home-about__content" data-aos="fade-up">
+      <h2 class="home-about__heading">{{ about_section.heading }}</h2>
+      <p class="home-about__desc">{{ about_section.description }}</p>
+
+      <ul class="checklist home-about__checklist">
+        {% for item in about_checklist %}
+          <li><i class="ti ti-rosette-discount-check-filled" aria-hidden="true"></i>{{ item.text }}</li>
+        {% endfor %}
+      </ul>
+
+      <div class="home-about__cta-wrap">
+        <a href="{{ about_section.cta_url }}" class="btn-outline home-about__cta">{{ about_section.cta_text }}</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="about-stats">
+  <div class="container-fluid about-stats__inner">
+    {% for stat in stats %}
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="stat-card__number" data-count-target="{{ stat.number }}">0</div>
+        <p class="stat-card__label">{{ stat.label }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="home-process">
+  <div class="container-fluid">
+    <div class="home-process__stack">
+      {% for frame in process_frames %}
+        <img src="{{ frame.image.url }}" alt="Working process step {{ forloop.counter }}"
+          class="home-process__frame {% if forloop.first %}is-active{% endif %}"
+          data-frame-index="{{ forloop.counter0 }}">
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="solutions-cards">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">We Provide Exclusive Service for your Business</h2>
+
+    <div class="solutions-cards__grid">
+      {% for card in home_service_cards %}
+        <div class="solution-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.image %}
+            <div class="solution-card__image">
+              <img src="{{ card.image.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="solution-card__title">{{ card.title }}</h3>
+          <p class="solution-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="home-why">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ home_why_section.heading }}</h2>
+    {% if home_why_section.subheading %}
+      <p class="section-subheading" data-aos="fade-up" data-aos-delay="100">{{ home_why_section.subheading }}</p>
+    {% endif %}
+
+    <div class="home-why__grid">
+      {% for card in home_why_cards %}
+        <div class="home-why-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.icon %}
+            <div class="home-why-card__icon-wrap">
+              <img src="{{ card.icon.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="home-why-card__title">{{ card.title }}</h3>
+          <p class="home-why-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

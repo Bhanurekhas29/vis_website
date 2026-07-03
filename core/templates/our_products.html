@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Our Products — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+
+<section class="about-stats">
+  <div class="container-fluid about-stats__inner">
+    {% for stat in stats %}
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        <div class="stat-card__number" data-count-target="{{ stat.number }}">0</div>
+        <p class="stat-card__label">{{ stat.label }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="products-cards">
+  <div class="container-fluid">
+
+    {% if featured_card %}
+    <a href="{{ featured_card.url }}" class="product-card product-card--featured" data-aos="fade-up">
+        <div class="product-card__content">
+        {% if featured_card.icon %}
+            <div class="product-card__icon-wrap">
+            <img src="{{ featured_card.icon.url }}" alt="">
+            </div>
+        {% endif %}
+        <h3 class="product-card__title">{{ featured_card.title }}</h3>
+        <p class="product-card__desc">{{ featured_card.description }}</p>
+        </div>
+        {% if featured_card.screenshot %}
+        <div class="product-card__screenshot product-card__screenshot--featured">
+            <img src="{{ featured_card.screenshot.url }}" alt="{{ featured_card.title }}">
+        </div>
+        {% endif %}
+    </a>
+    {% endif %}
+
+    <div class="products-cards__grid">
+    {% for card in product_cards %}
+        <a href="{{ card.url }}" class="product-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        {% if card.icon %}
+            <div class="product-card__icon-wrap">
+            <img src="{{ card.icon.url }}" alt="">
+            </div>
+        {% endif %}
+        <h3 class="product-card__title">{{ card.title }}</h3>
+        <p class="product-card__desc">{{ card.description }}</p>
+        {% if card.screenshot %}
+            <div class="product-card__screenshot">
+            <img src="{{ card.screenshot.url }}" alt="{{ card.title }}">
+            </div>
+        {% endif %}
+        </a>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

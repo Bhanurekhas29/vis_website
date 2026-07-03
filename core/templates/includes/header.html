@@ -1,0 +1,32 @@
+{% load static %}
+<header class="site-header">
+  <div class="container-fluid site-header__inner">
+    <a href="{% url 'home' %}" class="site-logo" aria-label="Go to homepage">
+      {% if site_settings and site_settings.logo %}
+        <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_title }}">
+      {% endif %}
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      {% for item in nav_items %}
+        <a href="{{ item.url }}" class="nav-item">
+          <span class="nav-item__icon"><i class="{{ item.icon_class }}" aria-hidden="true"></i></span>
+          <span class="nav-item__label">{{ item.name }}</span>
+        </a>
+      {% endfor %}
+      <a href="{{ site_settings.contact_button_url|default:'/contact/' }}" class="btn-solid btn-solid--mobile">
+        {{ site_settings.contact_button_text|default:"Contact Now" }}
+      </a>
+    </nav>
+
+    <a href="{{ site_settings.contact_button_url|default:'/contact/' }}" class="btn-solid btn-solid--desktop">
+      {{ site_settings.contact_button_text|default:"Contact Now" }}
+    </a> 
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

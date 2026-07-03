@@ -1,0 +1,14 @@
+<section class="build-cta">
+  <div class="container-fluid">
+    <div class="build-cta__box" data-aos="fade-up">
+      <h2 class="build-cta__heading">{{ build_cta.heading }}</h2>
+      {% if build_cta.description %}
+        <p class="build-cta__desc">{{ build_cta.description }}</p>
+      {% endif %}
+      <div class="build-cta__buttons">
+        <a href="{{ build_cta.button_url }}" class="build-cta__btn build-cta__btn--primary">{{ build_cta.primary_button_text }}</a>
+        <a href="{{ build_cta.button_url }}" class="build-cta__btn build-cta__btn--secondary">{{ build_cta.secondary_button_text }}</a>
+      </div>
+    </div>
+  </div>
+</section>

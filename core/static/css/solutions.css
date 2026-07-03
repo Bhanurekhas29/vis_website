@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Solutions page — Solution Cards
+   ========================================================================== */
+
+.solutions-cards {
+  padding: 80px 0;
+}
+
+.solutions-cards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.solution-card {
+  position: relative;
+  background: #FFFFFF;
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+  max-width: 345px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.solution-card__image {
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.solution-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.solution-card__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.solution-card__desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+@media (max-width: 1024px) {
+  .solutions-cards__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .solutions-cards__grid {
+    grid-template-columns: 1fr;
+  }
+}

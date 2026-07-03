@@ -1,0 +1,20 @@
+<section class="working-process">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">Our Working Process</h2>
+
+    <div class="process-track">
+      <svg class="process-track__lines" aria-hidden="true"></svg>
+
+      {% for step in process_steps %}
+        <div class="process-step {% cycle 'process-step--low' 'process-step--high' %}" data-step-index="{{ forloop.counter0 }}">
+          <div class="process-step__circle">
+            {% if step.icon %}
+              <img src="{{ step.icon.url }}" alt="{{ step.title }}">
+            {% endif %}
+          </div>
+          <p class="process-step__title">{{ step.title }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>

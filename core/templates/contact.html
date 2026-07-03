@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Contact — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+
+{% if messages %}
+  <div class="container-fluid form-messages">
+    {% for message in messages %}
+      <p class="form-message {% if message.tags %}form-message--{{ message.tags }}{% endif %}">{{ message }}</p>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<section class="contact-panel">
+  <div class="container-fluid">
+    <div class="contact-panel__box" data-aos="fade-up">
+
+      <div class="contact-panel__info">
+        <h2 class="contact-panel__heading">Contact Us</h2>
+
+        <div class="contact-item">
+          <div class="contact-item__icon"><i class="ti ti-phone" aria-hidden="true"></i></div>
+          <div>
+            <h3 class="contact-item__title">Call Us</h3>
+            <p class="contact-item__text">{{ page_info.call_us_number }}</p>
+          </div>
+        </div>
+
+        {% for loc in locations %}
+          <div class="contact-item">
+            <div class="contact-item__icon"><i class="ti ti-map-pin" aria-hidden="true"></i></div>
+            <div>
+              <h3 class="contact-item__title">Visit Us</h3>
+              <p class="contact-item__text contact-item__text--strong">{{ loc.branch_name }}</p>
+              <p class="contact-item__text">{{ loc.address }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="contact-panel__form">
+        <h2 class="contact-panel__heading">Send Message</h2>
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-field">
+            <i class="ti ti-user" aria-hidden="true"></i>
+            <input type="text" name="name" placeholder="Enter Name" required>
+          </div>
+          <div class="form-field">
+            <i class="ti ti-mail" aria-hidden="true"></i>
+            <input type="email" name="email" placeholder="Email Address" required>
+          </div>
+          <div class="form-field">
+            <i class="ti ti-phone" aria-hidden="true"></i>
+            <input type="tel" name="phone" placeholder="Enter Mobile No">
+          </div>
+          <div class="form-field form-field--textarea">
+            <i class="ti ti-message" aria-hidden="true"></i>
+            <textarea name="message" placeholder="Send Message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn-solid contact-panel__submit">Send Message</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% if page_info.map_embed_url %}
+<section class="contact-map">
+  <iframe src="{{ page_info.map_embed_url }}" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+{% endif %}
+
+<section class="faq-section">
+  <div class="container-fluid">
+    <h2 class="section-heading">Frequently Asked Questions</h2>
+    <p class="section-subheading">Quick answers to common questions</p>
+
+    <div class="faq-list {% if faqs|length > 4 %}faq-list--scroll{% endif %}">
+      {% for faq in faqs %}
+        <div class="faq-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="faq-item__icon">?</div>
+          <div>
+            <h3 class="faq-item__question">{{ faq.question }}</h3>
+            <p class="faq-item__answer">{{ faq.answer }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

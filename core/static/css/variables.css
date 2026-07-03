@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Vetri IT Systems — design tokens
+   Colors and font pulled directly from the Figma brief. Every other CSS
+   file in this project references these variables — never hardcode a hex
+   value anywhere else.
+   ========================================================================== */
+
+:root {
+  /* Primary */
+  --color-primary-orange: #F97316;
+  --color-primary-purple: #5729E0;
+
+  /* Accent */
+  --color-accent-violet: #7B2FF7;
+  --color-accent-orange: #FF7A18;
+  --color-accent-pink: #FF4D6D;
+  --color-accent-cream: #F8F2EF;
+  --color-nav-hover-blue: #2F6FED;
+
+  /* Base */
+  --color-bg: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B6B6B;
+  --color-border: #ECE9E6;
+
+  /* Gradients (used on CTA buttons, footer background, underlines) */
+  --gradient-cta: linear-gradient(90deg, var(--color-primary-orange) 0%, var(--color-primary-purple) 100%);
+  --gradient-footer-bg: linear-gradient(120deg, #FFF8F3 0%, #FBEFFB 50%, #F1ECFE 100%);
+  --gradient-underline: linear-gradient(90deg, var(--color-accent-orange) 0%, var(--color-accent-violet) 100%);
+
+  /* Typography */
+  --font-primary: 'Josefin Sans', sans-serif;
+
+  /* Layout */
+  --header-height: 84px;
+  --container-width: 1240px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-pill: 999px;
+  --radius-btn: 10px;
+
+  /* Motion */
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 0.2s;
+  --duration-base: 0.35s;
+}

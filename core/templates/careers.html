@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block title %}Careers — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+
+<section class="careers-hero">
+  <div class="container-fluid careers-hero__inner">
+    <div class="careers-hero__content" data-aos="fade-up">
+      <h1 class="careers-hero__heading">
+        {% if hero.highlight_text %}
+          {{ hero.heading|cut:hero.highlight_text }}<span class="careers-hero__highlight">{{ hero.highlight_text }}</span>
+        {% else %}
+          {{ hero.heading }}
+        {% endif %}
+      </h1>
+      <p class="careers-hero__desc">{{ hero.description }}</p>
+      <a href="{{ hero.cta_anchor }}" class="btn-gradient">{{ hero.cta_text }}</a>
+    </div>
+    {% if hero.image %}
+      <div class="careers-hero__image" data-aos="fade-left" data-aos-delay="150">
+        <img src="{{ hero.image.url }}" alt="{{ hero.heading }}">
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<section class="open-positions" id="open-positions">
+  <div class="container-fluid">
+    {% if open_positions_section.eyebrow_text %}
+      <span class="eyebrow " data-aos="fade-up">{{ open_positions_section.eyebrow_text }}</span>
+    {% endif %}
+    <h2 class="open-positions__heading" data-aos="fade-up" data-aos-delay="100">{{ open_positions_section.heading }}</h2>
+
+    <div class="job-list">
+      {% for job in jobs %}
+        <div class="job-row" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="job-row__left">
+            {% if job.icon %}
+              <div class="job-row__icon-wrap">
+                <img src="{{ job.icon.url }}" alt="">
+              </div>
+            {% endif %}
+            <h3 class="job-row__title">{{ job.title }}</h3>
+          </div>
+          <a href="{{ job.apply_url }}" class="job-row__apply" target="_blank" rel="noopener">Apply Now</a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="life-at-vis">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ life_section.heading }}</h2>
+    {% if life_section.subheading %}
+      <p class="section-subheading" data-aos="fade-up" data-aos-delay="100">{{ life_section.subheading }}</p>
+    {% endif %}
+
+    <div class="life-gallery">
+    {% for img in life_images %}
+        <div class="life-gallery__item
+        {% if forloop.first %}life-gallery__item--large{% endif %}
+        {% if forloop.last %}life-gallery__item--wide{% endif %}"
+        data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+        {% if img.image %}
+            <img src="{{ img.image.url }}" alt="Life at VIS">
+        {% endif %}
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="culture">
+  <div class="container-fluid">
+    <h2 class="culture__heading" data-aos="fade-up">{{ culture_section.heading }}</h2>
+    {% if culture_section.description %}
+      <p class="culture__desc" data-aos="fade-up" data-aos-delay="100">{{ culture_section.description }}</p>
+    {% endif %}
+
+    <div class="culture__grid">
+      {% for card in culture_cards %}
+        <div class="culture-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.icon %}
+            <div class="culture-card__icon-wrap">
+              <img src="{{ card.icon.url }}" alt="">
+            </div>
+          {% endif %}
+          <h3 class="culture-card__title">{{ card.title }}</h3>
+          <p class="culture-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">{{ benefits_section.heading }}</h2>
+    {% if benefits_section.subheading %}
+      <p class="section-subheading" data-aos="fade-up" data-aos-delay="100">{{ benefits_section.subheading }}</p>
+    {% endif %}
+
+    <div class="benefits__grid">
+      {% for card in benefit_cards %}
+        <div class="benefit-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.icon %}
+            <div class="benefit-card__icon-wrap">
+              <img src="{{ card.icon.url }}" alt="">
+            </div>
+          {% endif %}
+          <h3 class="benefit-card__title">{{ card.title }}</h3>
+          <p class="benefit-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

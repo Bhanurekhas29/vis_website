@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Solutions — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+{% include "includes/working_process.html" %}
+
+<section class="solutions-cards">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">Smart Digital Solutions for Every Business</h2>
+
+    <div class="solutions-cards__grid">
+      {% for card in solution_cards %}
+        <div class="solution-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.image %}
+            <div class="solution-card__image">
+              <img src="{{ card.image.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="solution-card__title">{{ card.title }}</h3>
+          <p class="solution-card__desc">{{ card.description }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

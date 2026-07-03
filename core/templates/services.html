@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Services — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+
+<section class="services-cards">
+  <div class="container-fluid">
+    <h2 class="section-heading section-heading--left">We Provide Exclusive Services<br>for your Business</h2>
+
+    <div class="services-cards__grid">
+      {% for card in service_cards %}
+        <div class="service-flip-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <div class="service-flip-card__face service-flip-card__face--front">
+            {% if card.image %}
+              <img src="{{ card.image.url }}" alt="{{ card.title }}">
+            {% endif %}
+            <h3 class="service-flip-card__title">{{ card.title }}</h3>
+            <a href="{% url 'service_detail' card.slug %}" class="service-flip-card__cta">
+              {{ card.cta_text }} <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="service-flip-card__face service-flip-card__face--back">
+            {% if card.icon %}
+              <div class="service-flip-card__icon-wrap">
+                <img src="{{ card.icon.url }}" alt="">
+              </div>
+            {% endif %}
+            <p class="service-flip-card__desc">{{ card.description }}</p>
+            <h3 class="service-flip-card__title">{{ card.title }}</h3>
+            <a href="{% url 'service_detail' card.slug %}" class="service-flip-card__cta">
+              {{ card.cta_text }} <i class="ti ti-arrow-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section>
+  {% include "includes/working_process.html" %} 
+</section>
+
+
+<section class="industries">
+  <div class="container-fluid">
+    <h2 class="section-heading" data-aos="fade-up">Industries We Serve</h2>
+    <p class="section-subheading" data-aos="fade-up" data-aos-delay="100">Delivering tailored solutions across diverse sector</p>
+
+    <div class="industries__grid">
+      {% for card in industry_cards %}
+        <div class="industry-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          {% if card.icon %}
+            <div class="industry-card__icon-wrap">
+              <img src="{{ card.icon.url }}" alt="{{ card.title }}">
+            </div>
+          {% endif %}
+          <h3 class="industry-card__title">{{ card.title }}</h3>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+{% endblock %}

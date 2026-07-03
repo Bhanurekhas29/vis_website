@@ -1,0 +1,90 @@
+/* ==========================================================================
+   Page banner — reused across About, Services, Solutions, Careers, etc.
+   Banner image sits as the section's own background; text overlays on top.
+   ========================================================================== */
+
+.page-banner {
+  background-color: #F3ECFE;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.page-banner__inner {
+  padding: 100px 24px;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+}
+
+.page-banner__content {
+  max-width: 560px;
+}
+
+.page-banner__heading {
+  width: 84%;
+  font-size: 42px;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--color-text);
+}
+
+.page-banner__highlight {
+  color: var(--color-primary-purple);
+}
+
+.page-banner__description {
+  margin-top: 20px;
+  font-size: 16px;
+  color: var(--color-text-muted);
+}
+
+.page-banner__ctas {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  padding: 14px 28px;
+  border-radius: var(--radius-btn);
+  border: 1.5px solid var(--color-primary-purple);
+  background: #FFFFFF;
+  color: var(--color-primary-purple);
+  font-weight: 500;
+  font-size: 15px;
+  transition: background var(--duration-fast) var(--ease-standard),
+              transform var(--duration-fast) var(--ease-standard);
+}
+
+.btn-outline:hover {
+  background: var(--color-accent-cream);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 900px) {
+  .page-banner__inner {
+    padding: 64px 24px;
+    min-height: 380px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .page-banner__content {
+    max-width: none;
+    margin: 0 auto;
+  }
+
+  .page-banner__ctas {
+    justify-content: center;
+  }
+
+  .page-banner__heading {
+    font-size: 30px;
+  }
+}

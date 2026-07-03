@@ -1,0 +1,512 @@
+/* ==========================================================================
+   Shared animations — hover effects + continuous looping animations used
+   across pages. Keep this file focused on motion only; layout/spacing
+   stays in each page's own CSS file.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Highlight cards (About page) — background color continuously fades
+   between two shades, purple <-> a slightly deeper purple.
+   -------------------------------------------------------------------------- */
+
+@keyframes cardColorFade {
+  0%, 100% {
+    background-color: var(--color-primary-purple);
+  }
+  50% {
+    background-color: var(--color-accent-violet);
+  }
+}
+
+.highlight-card {
+  animation: cardColorFade 4s ease-in-out infinite;
+}
+
+/* --------------------------------------------------------------------------
+   Quote card text — continuously zooms in and out.
+   -------------------------------------------------------------------------- */
+
+@keyframes textZoomPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+.quote-card p {
+  animation: textZoomPulse 3s ease-in-out infinite;
+}
+
+/* Respect users who've asked their OS/browser to reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .highlight-card,
+  .quote-card p {
+    animation: none !important;
+  }
+}
+
+
+
+/* --------------------------------------------------------------------------
+   Stat cards (About page) — on hover: directional border appears
+   (darker top/left, lighter right/bottom, color #FED3B4), and the card
+   height bounces, anchored at the top so it stretches downward.
+   -------------------------------------------------------------------------- */
+
+@keyframes statCardHeightBounce {
+  0% {
+    transform: scaleY(1);
+  }
+  35% {
+    transform: scaleY(1.12);
+  }
+  65% {
+    transform: scaleY(0.97);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+
+.stat-card {
+  transition: border-color 0.25s ease;
+  transform-origin: top center;
+}
+
+.stat-card:hover {
+  border-width: 2px;
+  border-style: solid;
+  border-top-color: rgba(250, 188, 144, 0.9);
+  border-left-color: rgba(245, 167, 111, 0.9);
+  border-right-color: rgba(254, 211, 180, 0.4);
+  border-bottom-color: rgba(254, 211, 180, 0.4);
+  animation: statCardHeightBounce 0.55s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stat-card:hover {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Core Services cards (About page) — on hover: image mirrors horizontally,
+   card background turns dark brown, text switches to white.
+   -------------------------------------------------------------------------- */
+
+.service-card {
+  transition: background-color 0.35s ease,
+              border-color 0.35s ease;
+}
+
+.service-card__image img {
+  transition: transform 0.45s ease;
+}
+
+.service-card__title,
+.service-card__desc {
+  transition: color 0.35s ease;
+}
+
+.service-card:hover {
+  background-color: #4C392B;
+  border-color: #4C392B;
+}
+
+.service-card:hover .service-card__image img {
+  transform: scaleX(-1);
+}
+
+.service-card:hover .service-card__title,
+.service-card:hover .service-card__desc {
+  color: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-card:hover .service-card__image img {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Mission/Vision cards (About page) — the corner curve intensifies into
+   a vivid gradient on hover.
+   -------------------------------------------------------------------------- */
+
+.mv-card::before {
+  transition: background 0.4s ease, transform 0.4s ease;
+}
+
+.mv-card:hover::before {
+  transform: scale(1.1);
+}
+
+.mv-card:nth-of-type(1):hover::before {
+  background: linear-gradient(135deg, #7B2FF7, #FF7A18);
+}
+
+.mv-card:nth-of-type(2):hover::before {
+  background: linear-gradient(135deg, #5729E0, #FF4D6D);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-card:hover::before {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Industry cards (Services page) — icon and title shift from left-aligned
+   to centered on hover.
+   -------------------------------------------------------------------------- */
+
+.industry-card__icon-wrap,
+.industry-card__title {
+  position: relative;
+  left: 0%;
+  transform: translateX(0%);
+  transition: left 0.4s ease, transform 0.4s ease;
+}
+
+.industry-card:hover .industry-card__icon-wrap,
+.industry-card:hover .industry-card__title {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .industry-card__icon-wrap,
+  .industry-card__title {
+    transition: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Service cards (Services page) — front fades out, back fades in on
+   hover, with a colored glow shadow around the whole card.
+   -------------------------------------------------------------------------- */
+
+.service-flip-card {
+  transition: box-shadow 0.4s ease;
+}
+
+.service-flip-card__face--front,
+.service-flip-card__face--back {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.service-flip-card__face--back {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.service-flip-card:hover .service-flip-card__face--front {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.service-flip-card:hover .service-flip-card__face--back {
+  opacity: 1;
+  visibility: visible;
+}
+
+.service-flip-card:hover {
+  box-shadow: 0 12px 32px rgba(255, 122, 24, 0.28);
+}
+
+.service-flip-card:nth-child(even):hover {
+  box-shadow: 0 12px 32px rgba(87, 41, 224, 0.28);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-flip-card__face--front,
+  .service-flip-card__face--back {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Product cards (Our Products page) — soft orange glow on hover, icon
+   mirrors left-to-right, screenshot drops down then snaps back when
+   the cursor leaves.
+   -------------------------------------------------------------------------- */
+
+.product-card {
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+
+.product-card:hover {
+  box-shadow: 0 16px 40px rgba(255, 122, 24, 0.25);
+  transform: translateY(-4px);
+}
+
+.product-card__icon-wrap img {
+  transition: transform 0.45s ease;
+}
+
+.product-card:hover .product-card__icon-wrap img {
+  transform: scaleX(-1);
+}
+
+.product-card__screenshot,
+.product-card__screenshot--featured {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.product-card:hover .product-card__screenshot,
+.product-card:hover .product-card__screenshot--featured {
+  transform: translateY(16px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .product-card__icon-wrap img,
+  .product-card__screenshot,
+  .product-card__screenshot--featured {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Solution cards (Solutions page) — left-edge gradient border appears on
+   hover (rounded to match the card), and the image mirrors horizontally.
+   -------------------------------------------------------------------------- */
+
+.solution-card {
+  transition: box-shadow 0.35s ease;
+}
+
+.solution-card:hover,.solution-card__title:hover {
+  color: #5729E0;
+}
+
+.solution-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 4px;
+  height: auto;
+  background: linear-gradient(180deg, var(--color-accent-violet), var(--color-accent-orange));
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+
+.solution-card:hover::before {
+  opacity: 1;
+}
+
+.solution-card:hover {
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.12);
+}
+
+.solution-card__image img {
+  transition: transform 0.45s ease;
+}
+
+.solution-card:hover .solution-card__image img {
+  transform: scaleX(-1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solution-card__image img {
+    transform: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Build Something CTA — gradient flips on hover
+   -------------------------------------------------------------------------- */
+
+.build-cta__box:hover {
+  background-position: 100% 50%;
+}
+
+/* --------------------------------------------------------------------------
+   Contact page — Call Us / Visit Us icons rotate on hover
+   -------------------------------------------------------------------------- */
+
+.contact-item__icon {
+  transition: transform 0.45s ease;
+}
+
+.contact-item:hover .contact-item__icon {
+  transform: rotate(360deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-item__icon {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Home hero — standing character floats up and down continuously.
+   Sitting character stays fixed, no animation.
+   -------------------------------------------------------------------------- */
+
+@keyframes floatUpDown {
+  0% {
+    transform: translateY(0);
+  }
+  90% {
+    transform: translateY(-78px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.home-hero__standing-man {
+  animation: floatUpDown 2.6s ease-in infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-hero__standing-man {
+    animation: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Home About section — image slides left to right continuously, slowly,
+   forever.
+   -------------------------------------------------------------------------- */
+
+@keyframes slideLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  90% {
+    transform: translateX(24px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.home-about__image {
+  animation: slideLeftRight 3s ease-in infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-about__image {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Home Why cards — light peach border swaps to orange-purple gradient on
+   hover, with a slight lift. Independent from About's .why-card.
+   -------------------------------------------------------------------------- */
+
+.home-why-card {
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.home-why-card:hover {
+  transform: translateY(-4px);
+  border-width: 5px;
+  background:
+    linear-gradient(#FFFFFF, #FFFFFF) padding-box,
+    linear-gradient(135deg, var(--color-accent-orange), var(--color-primary-purple)) border-box;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-why-card {
+    transition: none;
+  }
+}
+
+
+/* --------------------------------------------------------------------------
+   Service Solution cards — on hover, the orange icon square rotates
+   0->90->0 continuously, and the price flag blinks between blue and an
+   orange/purple gradient, in sync (same duration, same timing function).
+   -------------------------------------------------------------------------- */
+
+@keyframes squareRotate {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(90deg);
+  }
+}
+
+@keyframes flagBlink {
+  0%, 100% {
+    background: #2F6FED;
+  }
+  50% {
+    background: linear-gradient(135deg, var(--color-accent-orange), var(--color-primary-purple));
+  }
+}
+
+.solution-swap-card:hover .hover-icon-square {
+  animation: squareRotate 2s ease-in-out infinite;
+}
+
+.solution-swap-card:hover .price-flag {
+  background: #2F6FED;
+  animation: flagBlink 2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solution-swap-card:hover .hover-icon-square,
+  .solution-swap-card:hover .price-flag {
+    animation: none;
+  }
+}
+
+.solution-swap-card {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.solution-swap-card:hover {
+  border: 5px solid #FFD6E0;
+  box-shadow: 0 12px 32px rgba(255, 214, 224, 0.5);
+}
+
+/* --------------------------------------------------------------------------
+   What You Get — feature pills. On hover: icon box turns orange with a
+   rounded outer-left edge, whole pill lifts slightly with a soft shadow.
+   -------------------------------------------------------------------------- */
+
+.feature-pill {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-pill:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
+}
+
+.feature-pill__icon {
+  transition: background 0.35s ease, border-radius 0.35s ease;
+}
+
+.feature-pill:hover .feature-pill__icon {
+  background: var(--color-accent-orange);
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0 / 0 50% 50% 0;
+}
+
+.feature-pill__icon img {
+  transition: transform 0.35s ease;
+}
+
+.feature-pill:hover .feature-pill__icon img {
+  transform: scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-pill,
+  .feature-pill__icon,
+  .feature-pill__icon img {
+    transition: none;
+  }
+}

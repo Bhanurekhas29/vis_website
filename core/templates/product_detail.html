@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}{{ product.title }} — {{ site_settings.site_title }}{% endblock %}
+
+{% block content %}
+{% include "includes/banner.html" %}
+
+<section class="product-detail-intro">
+  <div class="container-fluid product-detail-intro__inner">
+    <h1 class="product-detail-intro__title" data-aos="fade-up">{{ product.title }}</h1>
+    {% if product.tagline %}
+      <p class="product-detail-intro__tagline" data-aos="fade-up" data-aos-delay="100">{{ product.tagline }}</p>
+    {% endif %}
+    <p class="product-detail-intro__desc" data-aos="fade-up" data-aos-delay="200">{{ product.description }}</p>
+  </div>
+</section>
+
+{% if gallery_images %}
+<section class="product-gallery">
+  <div class="container-fluid">
+    <div class="product-gallery__scroll">
+      {% for img in gallery_images %}
+        <div class="product-gallery__item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+          <img src="{{ img.image.url }}" alt="{{ product.title }} screenshot {{ forloop.counter }}">
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
+
+{% endblock %}
