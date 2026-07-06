@@ -47,8 +47,6 @@
   }
 }
 
-
-
 /* --------------------------------------------------------------------------
    Stat cards (About page) — on hover: directional border appears
    (darker top/left, lighter right/bottom, color #FED3B4), and the card
@@ -183,7 +181,6 @@
   }
 }
 
-
 /* --------------------------------------------------------------------------
    Service cards (Services page) — front fades out, back fades in on
    hover, with a colored glow shadow around the whole card.
@@ -196,6 +193,7 @@
 .service-flip-card__face--front,
 .service-flip-card__face--back {
   transition: opacity 0.4s ease, visibility 0.4s ease;
+  /* height:390px; */
 }
 
 .service-flip-card__face--back {
@@ -323,7 +321,14 @@
    -------------------------------------------------------------------------- */
 
 .build-cta__box:hover {
-  background-position: 100% 50%;
+  /* background-position: 100% 50%; */
+   background: linear-gradient(
+        125deg,
+        #F67527 0%,
+        #D36D76 45%,
+        #B04D9E 75%,
+        #8B38DC 100%
+    );
 }
 
 /* --------------------------------------------------------------------------
@@ -371,7 +376,6 @@
   }
 }
 
-
 /* --------------------------------------------------------------------------
    Home About section — image slides left to right continuously, slowly,
    forever.
@@ -382,7 +386,7 @@
     transform: translateX(0);
   }
   90% {
-    transform: translateX(24px);
+    transform: translateX(44px);
   }
   100% {
     transform: translateX(0);
@@ -390,7 +394,7 @@
 }
 
 .home-about__image {
-  animation: slideLeftRight 3s ease-in infinite;
+  animation: slideLeftRight 1s ease-in infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -410,7 +414,7 @@
 
 .home-why-card:hover {
   transform: translateY(-4px);
-  border-width: 5px;
+  border-width: 8px;
   background:
     linear-gradient(#FFFFFF, #FFFFFF) padding-box,
     linear-gradient(135deg, var(--color-accent-orange), var(--color-primary-purple)) border-box;
@@ -422,20 +426,50 @@
   }
 }
 
-
 /* --------------------------------------------------------------------------
    Service Solution cards — on hover, the orange icon square rotates
-   0->90->0 continuously, and the price flag blinks between blue and an
-   orange/purple gradient, in sync (same duration, same timing function).
+   0 -> 45 -> 0 continuously (holding briefly at 45deg to read as a
+   diamond), the icon inside counter-rotates so it stays upright, and
+   the price flag blinks between blue and an orange/purple gradient,
+   in sync (same duration, same timing function).
    -------------------------------------------------------------------------- */
 
 @keyframes squareRotate {
-  0%, 100% {
+  0% {
     transform: rotate(0deg);
   }
-  50% {
-    transform: rotate(90deg);
+  35% {
+    transform: rotate(45deg);
   }
+  65% {
+    transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes iconCounterRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  35% {
+    transform: rotate(-45deg);
+  }
+  65% {
+    transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.solution-swap-card:hover .hover-icon-square {
+  animation: squareRotate 2s ease-in-out infinite;
+}
+
+.solution-swap-card:hover .hover-icon-square img {
+  animation: iconCounterRotate 2s ease-in-out infinite;
 }
 
 @keyframes flagBlink {
@@ -447,10 +481,6 @@
   }
 }
 
-.solution-swap-card:hover .hover-icon-square {
-  animation: squareRotate 2s ease-in-out infinite;
-}
-
 .solution-swap-card:hover .price-flag {
   background: #2F6FED;
   animation: flagBlink 2s ease-in-out infinite;
@@ -458,18 +488,19 @@
 
 @media (prefers-reduced-motion: reduce) {
   .solution-swap-card:hover .hover-icon-square,
+  .solution-swap-card:hover .hover-icon-square img,
   .solution-swap-card:hover .price-flag {
     animation: none;
   }
 }
 
-.solution-swap-card {
-  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+.solution-swap-card:hover .hover-icon-square{
+    animation:squareRotate 2s ease-in-out infinite;
+    transform-origin:center;
 }
 
-.solution-swap-card:hover {
-  border: 5px solid #FFD6E0;
-  box-shadow: 0 12px 32px rgba(255, 214, 224, 0.5);
+.solution-swap-card:hover .hover-icon-square img{
+    animation:iconCounterRotate 2s ease-in-out infinite;
 }
 
 /* --------------------------------------------------------------------------
@@ -483,6 +514,8 @@
 
 .feature-pill:hover {
   transform: translateY(-4px);
+  border-top-left-radius:25px;
+  border-bottom-left-radius: 25px;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
 }
 
@@ -491,16 +524,26 @@
 }
 
 .feature-pill:hover .feature-pill__icon {
-  background: var(--color-accent-orange);
+  background: #FF862E;
+  width: 72px;
+  height: 80px;
   border-radius: 0 var(--radius-pill) var(--radius-pill) 0 / 0 50% 50% 0;
+  box-shadow: 0 -8px 20px rgba(0,0,0,0.15);  /* shadow above */
 }
 
 .feature-pill__icon img {
   transition: transform 0.35s ease;
+   width: 26px;
+  height: 26px;
+  object-fit: contain;
 }
 
 .feature-pill:hover .feature-pill__icon img {
   transform: scale(1.15);
+}
+.feature-pill:hover .feature-pill__title {
+  transform: translate(-4px, -4px);
+  color:#5729E0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -508,5 +551,29 @@
   .feature-pill__icon,
   .feature-pill__icon img {
     transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Service cards (Services page) — "Explore Service" button slides in
+   from the right when the card is hovered.
+   -------------------------------------------------------------------------- */
+
+.service-flip-card__face--back .service-flip-card__cta {
+  transform: translateX(30px);
+  opacity: 0;
+  transition: transform 0.9s ease 0.15s, opacity 0.9s ease 0.15s;
+}
+
+.service-flip-card:hover .service-flip-card__face--back .service-flip-card__cta {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .service-flip-card__face--back .service-flip-card__cta {
+    transition: none;
+    transform: none;
+    opacity: 1;
   }
 }

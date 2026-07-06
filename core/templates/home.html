@@ -86,7 +86,14 @@
 
 <section class="solutions-cards">
   <div class="container-fluid">
-    <h2 class="section-heading" data-aos="fade-up">We Provide Exclusive Service for your Business</h2>
+
+    <div class="solutions-cards__header">
+      <h2 class="section-heading" data-aos="fade-up">We Provide Exclusive Service for your Business</h2>
+      <a href="{% url 'services' %}" class="solutions-cards__view-all" data-aos="fade-up" data-aos-delay="100">
+        <span>View All Services</span>
+        <i class="ti ti-arrow-right" aria-hidden="true"></i>
+      </a>
+    </div>
 
     <div class="solutions-cards__grid">
       {% for card in home_service_cards %}

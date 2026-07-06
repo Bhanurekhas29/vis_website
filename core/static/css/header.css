@@ -67,7 +67,7 @@
   gap: 6px;
   padding: 10px 16px;
   border-radius: var(--radius-sm);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--color-text);
   transition: color var(--duration-fast) var(--ease-standard);
@@ -80,6 +80,15 @@
   transform: scale(0.6);
   transition: opacity var(--duration-base) var(--ease-standard),
               transform var(--duration-base) var(--ease-standard);
+}
+
+.nav-item--active {
+  color: var(--color-nav-hover-blue);
+}
+
+.nav-item--active .nav-item__icon {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .nav-item__label {
@@ -113,6 +122,9 @@
 /* ==========================================================================
    Header CTA button (solid orange)
    ========================================================================== */
+.main-nav .btn-solid {
+  font-size: 20px;
+}
 
 .btn-solid {
   display: inline-flex;
@@ -122,7 +134,7 @@
   background: var(--color-primary-orange);
   color: #FFFFFF;
   font-weight: 500;
-  font-size: 15px;
+  /* font-size: 15px; */
   transition: background var(--duration-fast) var(--ease-standard),
               transform var(--duration-fast) var(--ease-standard);
 }

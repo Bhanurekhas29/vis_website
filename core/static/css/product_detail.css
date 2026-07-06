@@ -14,7 +14,7 @@
 }
 
 .product-detail-intro__title {
-  font-family: 'Caveat', cursive;
+  /* font-family: 'Caveat', cursive; */
   font-size: 40px;
   font-weight: 700;
   margin-bottom: 16px;
@@ -33,29 +33,207 @@
   line-height: 1.8;
 }
 
-/* ---- Vertically scrollable gallery, fixed viewport width ---- */
+/* ---- Product video-style player showcase ---- */
 
-.product-gallery {
+.product-showcase {
   padding: 60px 0 100px;
 }
 
-.product-gallery__scroll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
+.product-player {
+  max-width: 1212px;
+  margin: 0 auto;
 }
 
-.product-gallery__item {
-  width: 800px;
-  max-width: 90vw;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid var(--color-border);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
-}
-
-.product-gallery__item img {
+.product-player__frame {
+  position: relative;
   width: 100%;
+  aspect-ratio: 1212 / 565;
+  background: #575757;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+/* ---- Thumbnail state ---- */
+
+.product-player__thumbnail {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  z-index: 2;
+}
+
+.product-player__thumbnail.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.product-player__logo {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-player__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-player__play-btn {
+  position: relative;
+  z-index: 1;
+  width: 68px;
+  height: 48px;
+  background: #FF0000;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  color: #FFFFFF;
+  font-size: 26px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.product-player__play-btn i {
+  margin-left: 3px; /* optically center the triangle inside the rounded rect */
+}
+
+.product-player__play-btn:hover {
+  transform: scale(1.06);
+  background: #E60000;
+}
+
+@media (max-width: 600px) {
+  .product-player__logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .product-player__play-btn {
+    width: 52px;
+    height: 38px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+}
+
+/* ---- Slideshow state ---- */
+
+.product-player__slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1;
+}
+
+.product-player__slides.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.product-player__slide {
+  position: absolute;
+  inset: 0;
+  transform: translateY(100%);
+  transition: transform 0.6s ease;
+}
+
+.product-player__slide.is-current {
+  transform: translateY(0);
+}
+
+.product-player__slide.is-prev {
+  transform: translateY(-100%);
+}
+
+.product-player__slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
+}
+
+/* ---- Controls bar ---- */
+
+.product-player__controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 0 4px;
+}
+
+.product-player__toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text, #222);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.product-player__progress-track {
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: #D9D9D9;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-player__progress-fill {
+  height: 100%;
+  width: 0%;
+  background: #E53935;
+  border-radius: 999px;
+  position: relative;
+}
+
+.product-player__progress-fill::after {
+  content: "";
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.product-player__time {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text, #222);
+  flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+  .product-player__logo {
+    width: 80px;
+    height: 80px;
+  }
+
+  .product-player__play-btn {
+    font-size: 50px;
+  }
 }

@@ -5,6 +5,9 @@
 .site-footer {
   background: var(--gradient-footer-bg);
   padding-top: 48px;
+  /* width: 1440px; */
+  height: 583px;
+  
 }
 
 .footer-top {
@@ -16,8 +19,8 @@
 }
 
 .footer-top h2 {
-  font-size: 28px;
-  font-weight: 500;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 .footer-columns {
@@ -28,20 +31,21 @@
 }
 
 .footer-brand img {
-  height: 72px;
-  width: auto;
+  height: 132px;
+  width: 132px;
   margin-bottom: 16px;
 }
 
 .footer-brand p {
-  color: var(--color-text-muted);
-  font-size: 14px;
+  color: black;
+  font-size: 16px;
+  font-weight: 400;
   max-width: 300px;
 }
 
 .footer-col h3 {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 600;
   margin-bottom: 16px;
 }
 
@@ -50,8 +54,8 @@
 }
 
 .footer-col ul li a {
-  color: var(--color-text-muted);
-  font-size: 14px;
+  color: black;
+  font-size: 16px;
   position: relative;
   transition: color var(--duration-fast) var(--ease-standard),
               padding-left var(--duration-fast) var(--ease-standard);
@@ -66,8 +70,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  color: var(--color-text-muted);
-  font-size: 14px;
+  color: black;
+  font-size: 16px;
 }
 
 .footer-contact li i {
@@ -81,8 +85,9 @@
   justify-content: space-between;
   padding: 20px 0;
   border-top: 1px solid rgba(0, 0, 0, 0.08);
-  font-size: 13px;
-  color: var(--color-text-muted);
+  font-size: 16px;
+  color: black;
+  text-align: center;
 }
 
 .footer-social {
@@ -100,7 +105,7 @@
   border-radius: 50%;
   background: #1A1A1A;
   color: #FFFFFF;
-  font-size: 15px;
+  font-size: 16px;
   transition: transform var(--duration-fast) var(--ease-standard),
               background var(--duration-fast) var(--ease-standard);
 }

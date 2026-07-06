@@ -1,6 +1,8 @@
+
 {% extends "base.html" %}
 {% block title %}{{ product.title }} — {{ site_settings.site_title }}{% endblock %}
 
+{% load static %}
 {% block content %}
 {% include "includes/banner.html" %}
 
@@ -15,17 +17,129 @@
 </section>
 
 {% if gallery_images %}
-<section class="product-gallery">
+<section class="product-showcase">
   <div class="container-fluid">
-    <div class="product-gallery__scroll">
-      {% for img in gallery_images %}
-        <div class="product-gallery__item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-          <img src="{{ img.image.url }}" alt="{{ product.title }} screenshot {{ forloop.counter }}">
+    <div class="product-player" id="productPlayer" data-aos="fade-up">
+
+      <div class="product-player__frame">
+
+        <!-- Thumbnail state: logo + big center play button -->
+        <div class="product-player__thumbnail" id="playerThumbnail">
+          <div class="product-player__logo">
+            <!-- TODO: replace with your actual site logo static path -->
+            <img src="{% static '/images/logo.webp' %}" alt="{{ site_settings.site_title }}">
+          </div>
+          <button type="button" class="product-player__play-btn" id="playerPlayBtn" aria-label="Play showcase">
+            <i class="ti ti-player-play-filled"></i>
+          </button>
         </div>
-      {% endfor %}
+
+        <!-- Slideshow state: gallery images slide bottom to up -->
+        <div class="product-player__slides" id="playerSlides">
+          {% for img in gallery_images %}
+            <div class="product-player__slide">
+              <img src="{{ img.image.url }}" alt="{{ product.title }} screenshot {{ forloop.counter }}">
+            </div>
+          {% endfor %}
+        </div>
+
+      </div>
+
+      <div class="product-player__controls">
+        <button type="button" class="product-player__toggle" id="playerToggle" aria-label="Play or pause showcase">
+          <i class="ti ti-player-play-filled" id="playerToggleIcon"></i>
+        </button>
+
+        <div class="product-player__progress-track">
+          <div class="product-player__progress-fill" id="playerProgressFill"></div>
+        </div>
+
+        <span class="product-player__time">00:15:06</span>
+      </div>
+
     </div>
   </div>
 </section>
 {% endif %}
+
+<script>
+(function () {
+  var player = document.getElementById("productPlayer");
+  if (!player) return;
+
+  var thumbnail = document.getElementById("playerThumbnail");
+  var playBtn = document.getElementById("playerPlayBtn");
+  var slidesWrap = document.getElementById("playerSlides");
+  var slides = slidesWrap.querySelectorAll(".product-player__slide");
+  var toggleBtn = document.getElementById("playerToggle");
+  var toggleIcon = document.getElementById("playerToggleIcon");
+  var progressFill = document.getElementById("playerProgressFill");
+
+  var total = slides.length;
+  var currentIndex = -1;
+  var slideTimer = null;
+  var isPlaying = false;
+  var SLIDE_DURATION = 3000; // ms each image stays on screen
+
+  function showThumbnail() {
+    isPlaying = false;
+    clearTimeout(slideTimer);
+    slidesWrap.classList.remove("is-active");
+    thumbnail.classList.remove("is-hidden");
+    toggleIcon.className = "ti ti-player-play-filled";
+
+    slides.forEach(function (slide) {
+      slide.classList.remove("is-current", "is-prev");
+    });
+
+    progressFill.style.transition = "none";
+    progressFill.style.width = "0%";
+    currentIndex = -1;
+  }
+
+  function goToSlide(index) {
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle("is-current", i === index);
+      slide.classList.toggle("is-prev", i < index);
+    });
+
+    progressFill.style.transition = "width " + SLIDE_DURATION + "ms linear";
+    progressFill.style.width = (((index + 1) / total) * 100) + "%";
+  }
+
+  function nextSlide() {
+    currentIndex++;
+
+    if (currentIndex >= total) {
+      showThumbnail();
+      return;
+    }
+
+    goToSlide(currentIndex);
+    slideTimer = setTimeout(nextSlide, SLIDE_DURATION);
+  }
+
+  function startSlideshow() {
+    if (total === 0) return;
+
+    isPlaying = true;
+    thumbnail.classList.add("is-hidden");
+    slidesWrap.classList.add("is-active");
+    toggleIcon.className = "ti ti-player-pause-filled";
+    currentIndex = -1;
+    nextSlide();
+  }
+
+  playBtn.addEventListener("click", startSlideshow);
+
+  toggleBtn.addEventListener("click", function () {
+    if (isPlaying) {
+      showThumbnail();
+    } else {
+      startSlideshow();
+    }
+  });
+})();
+</script>
 
 {% endblock %}

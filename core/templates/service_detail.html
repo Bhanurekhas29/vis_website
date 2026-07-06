@@ -49,15 +49,16 @@
           <div class="solution-swap-card__hover">
             {% if card.price_text %}
               <div class="price-flag">
-                <span>Starting From</span>
                 <strong>{{ card.price_text }}</strong>
               </div>
             {% endif %}
 
-            <div class="hover-icon-square">
-              {% if card.hover_icon %}
-                <img src="{{ card.hover_icon.url }}" alt="">
-              {% endif %}
+            <div class="hover-icon-frame">
+              <div class="hover-icon-square">
+                {% if card.hover_icon %}
+                  <img src="{{ card.hover_icon.url }}" alt="">
+                {% endif %}
+              </div>
             </div>
 
             <h3 class="solution-swap-card__title">{{ card.title }}</h3>
@@ -89,7 +90,7 @@
         <div class="feature-pill" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
           <div class="feature-pill__icon">
             {% if feature.icon %}
-              <img src="{{ feature.icon.url }}" alt="">
+              <img src="{{ feature.icon.url }}" alt="" class="feature-pill__icon-img">
             {% endif %}
           </div>
           <span class="feature-pill__title">{{ feature.title }}</span>

@@ -19,40 +19,66 @@
   <div class="container-fluid">
 
     {% if featured_card %}
-    <a href="{{ featured_card.url }}" class="product-card product-card--featured" data-aos="fade-up">
-        <div class="product-card__content">
+    <div class="product-card product-card--featured" data-aos="fade-up">
+
+      <div class="product-card__header">
         {% if featured_card.icon %}
-            <div class="product-card__icon-wrap">
+          <div class="product-card__icon-wrap">
             <img src="{{ featured_card.icon.url }}" alt="">
-            </div>
+          </div>
         {% endif %}
-        <h3 class="product-card__title">{{ featured_card.title }}</h3>
-        <p class="product-card__desc">{{ featured_card.description }}</p>
+
+        {% if featured_card.brochure_file %}
+          <a href="{{ featured_card.brochure_file.url }}" class="product-card__brochure-btn" download>
+            <i class="ti ti-download" aria-hidden="true"></i>
+            <span>Download Brochure</span>
+          </a>
+        {% endif %}
+      </div>
+
+      <a href="{{ featured_card.url }}" class="product-card__link">
+        <div class="product-card__content">
+          <h3 class="product-card__title">{{ featured_card.title }}</h3>
+          <p class="product-card__desc">{{ featured_card.description }}</p>
         </div>
         {% if featured_card.screenshot %}
-        <div class="product-card__screenshot product-card__screenshot--featured">
+          <div class="product-card__screenshot product-card__screenshot--featured">
             <img src="{{ featured_card.screenshot.url }}" alt="{{ featured_card.title }}">
-        </div>
+          </div>
         {% endif %}
-    </a>
+      </a>
+    </div>
     {% endif %}
 
     <div class="products-cards__grid">
     {% for card in product_cards %}
-        <a href="{{ card.url }}" class="product-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
-        {% if card.icon %}
-            <div class="product-card__icon-wrap">
-            <img src="{{ card.icon.url }}" alt="">
-            </div>
-        {% endif %}
-        <h3 class="product-card__title">{{ card.title }}</h3>
-        <p class="product-card__desc">{{ card.description }}</p>
-        {% if card.screenshot %}
-            <div class="product-card__screenshot">
-            <img src="{{ card.screenshot.url }}" alt="{{ card.title }}">
-            </div>
-        {% endif %}
-        </a>
+        <div class="product-card" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+
+          <div class="product-card__header">
+            {% if card.icon %}
+              <div class="product-card__icon-wrap">
+                <img src="{{ card.icon.url }}" alt="">
+              </div>
+            {% endif %}
+
+            {% if card.brochure_file %}
+              <a href="{{ card.brochure_file.url }}" class="product-card__brochure-btn" download>
+                <i class="ti ti-download" aria-hidden="true"></i>
+                <span>Download Brochure</span>
+              </a>
+            {% endif %}
+          </div>
+
+          <a href="{{ card.url }}" class="product-card__link">
+            <h3 class="product-card__title">{{ card.title }}</h3>
+            <p class="product-card__desc">{{ card.description }}</p>
+            {% if card.screenshot %}
+              <div class="product-card__screenshot">
+                <img src="{{ card.screenshot.url }}" alt="{{ card.title }}">
+              </div>
+            {% endif %}
+          </a>
+        </div>
     {% endfor %}
     </div>
   </div>

@@ -9,7 +9,12 @@
 
     <nav class="main-nav" aria-label="Primary">
       {% for item in nav_items %}
-        <a href="{{ item.url }}" class="nav-item">
+         <a href="{{ item.url }}" class="nav-item
+            {% if item.url == '/' %}
+              {% if request.path == '/' %}nav-item--active{% endif %}
+            {% else %}
+              {% if item.url in request.path %}nav-item--active{% endif %}
+            {% endif %} ">
           <span class="nav-item__icon"><i class="{{ item.icon_class }}" aria-hidden="true"></i></span>
           <span class="nav-item__label">{{ item.name }}</span>
         </a>

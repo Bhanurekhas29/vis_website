@@ -20,11 +20,12 @@
 
 .page-banner__content {
   max-width: 560px;
+  padding-left: 24px;
 }
 
 .page-banner__heading {
   width: 84%;
-  font-size: 42px;
+  font-size: 64px;
   font-weight: 600;
   line-height: 1.25;
   color: var(--color-text);
@@ -36,12 +37,12 @@
 
 .page-banner__description {
   margin-top: 20px;
-  font-size: 16px;
+  font-size: 20px;
   color: var(--color-text-muted);
 }
 
 .page-banner__ctas {
-  margin-top: 32px;
+  margin-top: 68px;
   display: flex;
   align-items: center;
   gap: 16px;

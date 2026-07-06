@@ -42,9 +42,10 @@
 }
 
 .solution-card__title {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   margin-bottom: 10px;
+  
 }
 
 .solution-card__desc {

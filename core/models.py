@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.text import slugify
+from django.core.validators import FileExtensionValidator
 
 
 class SiteSettings(models.Model):
@@ -491,6 +492,13 @@ class ProductCard(models.Model):
         max_length=200,
         blank=True,
         help_text="Short subheading shown on the product detail page, e.g. 'Simplify Billing, Manage Sales, and Grow Your Business'.",
+    )
+    brochure_file = models.FileField(
+        upload_to="products/brochures/",
+        blank=True,
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["pdf"])],
+        help_text="PDF brochure for this product. If left empty, the 'Download Brochure' button is hidden. Only .pdf files are allowed.",
     )
     slug = models.SlugField(max_length=160, unique=True, blank=True)
 

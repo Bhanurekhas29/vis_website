@@ -1,7 +1,11 @@
+import re
+from django.core.exceptions import ValidationError
+from django.core.validators import validate_email
 from django.contrib import messages
 from django.core.mail import send_mail
 from django.http import Http404
 from django.shortcuts import redirect, render
+
 
 from .models import (
     AboutChecklistItem,
@@ -143,7 +147,19 @@ def contact(request):
         phone = request.POST.get("phone", "").strip()
         message = request.POST.get("message", "").strip()
 
-        if name and email and message:
+        name_valid = bool(re.match(r"^[A-Za-z\s]+$", name)) if name else False
+        phone_valid = bool(re.match(r"^[0-9]{10}$", phone)) if phone else True  # phone is optional
+
+        email_valid = True
+        if email:
+            try:
+                validate_email(email)
+            except ValidationError:
+                email_valid = False
+        else:
+            email_valid = False
+
+        if name and email and message and name_valid and phone_valid and email_valid:
             ContactSubmission.objects.create(name=name, email=email, phone=phone, message=message)
 
             page_info = ContactPageInfo.objects.first()
@@ -166,6 +182,12 @@ def contact(request):
 
             messages.success(request, "Your message has been sent. We'll get back to you soon.")
             return redirect("home")
+        elif not name_valid:
+            messages.error(request, "Please enter a valid name using letters only.")
+        elif not email_valid:
+            messages.error(request, "Please enter a valid email address.")
+        elif not phone_valid:
+            messages.error(request, "Please enter a valid 10-digit mobile number.")
         else:
             messages.error(request, "Please fill in all required fields.")
 
